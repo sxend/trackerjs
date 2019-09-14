@@ -10,7 +10,11 @@ export class Model {
         }
         return this.parent && this.parent.get(name);
     }
-    set(nameOrFieldsObject: string, value: any, temporary?: boolean): void {
+    set(
+        nameOrFieldsObject: string | any,
+        value?: any,
+        temporary?: boolean
+    ): void {
         if (!temporary && this.parent) {
             this.parent.set(nameOrFieldsObject, value, temporary);
         } else {
