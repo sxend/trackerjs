@@ -1,5 +1,5 @@
 import { Tracker } from '../tracker';
-import { Arrays, Objects } from '../util';
+import { assign, isString, isObject } from '../utils/objects';
 
 export function create(_: Tracker, ...args: any[]): Tracker {
     const tr = this;
@@ -12,20 +12,28 @@ export function create(_: Tracker, ...args: any[]): Tracker {
 }
 function convertArguments(args: any[]): any {
     let fields: any = {};
-    if (typeof args[0] === 'string') {
+    if (isString(args[0])) {
         fields['trackingId'] = args[0];
-    } else if (typeof args[0] === 'object') {
-        fields = Objects.assign(fields, args[0]);
+    } else if (isObject(args[0])) {
+        fields = assign(fields, args[0]);
     }
-    if (typeof args[1] === 'string') {
-        fields['cookieDomain'] = args[1];
-    } else if (typeof args[1] === 'object') {
-        fields = Objects.assign(fields, args[1]);
+    if (isString(args[1])) {
+        fields['endpoint'] = args[1];
+    } else if (isObject(args[1])) {
+        fields = assign(fields, args[1]);
     }
-    if (typeof args[2] === 'string') {
-        fields['name'] = args[2];
-    } else if (typeof args[2] === 'object') {
-        fields = Objects.assign(fields, args[2]);
+    if (isString(args[2])) {
+        fields['cookieDomain'] = args[2];
+    } else if (isObject(args[2])) {
+        fields = assign(fields, args[2]);
+    }
+    if (isString(args[3])) {
+        fields['name'] = args[3];
+    } else if (isObject(args[3])) {
+        fields = assign(fields, args[3]);
+    }
+    if (isObject(args[4])) {
+        fields = assign(fields, args[4]);
     }
     return fields;
 }

@@ -38,7 +38,7 @@ test('tr object create/remove method(explicitly tracker name)', t => {
     tr.remove('tname');
     t.falsy(tr.t['tname']);
     tr = newTr();
-    tracker = tr.create('TEST_TRACKER', 'cdomain', 'tname2');
+    tracker = tr.create('TEST_TRACKER', 'endpoint', 'cdomain', 'tname2');
     t.is(tracker.get('trackingId'), 'TEST_TRACKER');
     t.is(tracker.get('name'), 'tname2');
     t.truthy(tr.t['tname2']);
@@ -48,8 +48,8 @@ test('tr object create/remove method(explicitly tracker name)', t => {
 });
 test('tr object getByName/getAll method(explicitly tracker name)', t => {
     let tr = newTr();
-    tr.create('TEST_TRACKER0', 'cdomain', 'tname0');
-    tr.create('TEST_TRACKER1', 'cdomain', 'tname1');
+    tr.create('TEST_TRACKER0', 'endpoint', 'cdomain', 'tname0');
+    tr.create('TEST_TRACKER1', 'endpoint', 'cdomain', 'tname1');
     let trackers = tr.getAll();
     t.is(trackers.length, 2);
     t.is(trackers[0].get('trackingId'), 'TEST_TRACKER0');

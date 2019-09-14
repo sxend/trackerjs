@@ -1,7 +1,6 @@
 import { create } from './commands/create';
 import { remove } from './commands/remove';
 import { Tracker } from './tracker';
-import { Arrays } from './util';
 import { Command } from './command';
 export function main(oldtr: any) {
     if (!oldtr.q) {
