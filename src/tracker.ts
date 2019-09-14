@@ -1,6 +1,6 @@
 import { Model } from './model';
 import { isString, assign, isNumber } from './utils/objects';
-import { Task } from './task';
+import { Task } from './tasks';
 import { isObject } from 'util';
 
 export class Tracker {
