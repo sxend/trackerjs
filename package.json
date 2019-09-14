@@ -1,33 +1,33 @@
 {
-  "name": "trackerjs",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "clean": "rm -rf target && mkdir -p target",
-    "prebuild": "prettier --config prettier.config.js --write package.json package-info.json tsconfig.json webpack.config.js prettier.config.js ./src/* ./src/**/* ./test/* ./test/**/*",
-    "build:tsc": "tsc",
-    "build": "npm run build:tsc && webpack",
-    "test": "npm run build && ava"
-  },
-  "author": "",
-  "license": "MIT",
-  "devDependencies": {
-    "ava": "2.3.0",
-    "prettier": "1.18.2",
-    "ts-loader": "6.1.0",
-    "ts-node": "8.3.0",
-    "typescript": "3.6.3",
-    "webpack": "4.40.2",
-    "webpack-cli": "3.3.8"
-  },
-  "ava": {
-    "compileEnhancements": false,
-    "extensions": [
-      "ts"
-    ],
-    "require": [
-      "ts-node/register"
-    ]
-  }
+    "name": "trackerjs",
+    "version": "0.0.1",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "clean": "rm -rf target && mkdir -p target",
+        "prebuild": "prettier --config prettier.config.js --write package.json package-info.json tsconfig.json webpack.config.js prettier.config.js ./src/* ./src/**/* ./test/* ./test/**/*",
+        "build:tsc": "tsc",
+        "build": "npm run build:tsc && webpack",
+        "test": "npm run build && ava"
+    },
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+        "ava": "2.3.0",
+        "prettier": "1.18.2",
+        "ts-loader": "6.1.0",
+        "ts-node": "8.3.0",
+        "typescript": "3.6.3",
+        "webpack": "4.40.2",
+        "webpack-cli": "3.3.8"
+    },
+    "ava": {
+        "compileEnhancements": false,
+        "extensions": [
+            "ts"
+        ],
+        "require": [
+            "ts-node/register"
+        ]
+    }
 }
