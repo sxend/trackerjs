@@ -29,5 +29,8 @@
         "require": [
             "ts-node/register"
         ]
+    },
+    "dependencies": {
+        "uuid": "3.3.3"
     }
 }
