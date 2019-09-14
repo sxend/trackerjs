@@ -1,5 +1,5 @@
 import test from 'ava';
-import { tr } from '../src/index';
+import { tr } from '../src/tr';
 
 test('index', t => {
   tr('create', 'TEST_TRACKER');
