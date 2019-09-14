@@ -1,3 +1,3 @@
 import { Model } from '../model';
 
-export function validationTask(model: Model) {}
+export function validationTask(model: Model): void {}

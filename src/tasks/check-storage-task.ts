@@ -1,3 +1,3 @@
 import { Model } from '../model';
 
-export function checkStorageTask(model: Model) {}
+export function checkStorageTask(model: Model): void {}
