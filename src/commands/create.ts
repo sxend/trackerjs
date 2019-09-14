@@ -10,7 +10,7 @@ export function create(..._: any[]): Tracker {
     }
     return tracker;
 }
-export function convertArguments(args: any[]): any {
+function convertArguments(args: any[]): any {
     let fields: any = {};
     if (typeof args[0] === 'string') {
         fields['trackingId'] = args[0];
