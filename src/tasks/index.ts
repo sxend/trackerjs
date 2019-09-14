@@ -15,12 +15,14 @@ import { displayFeaturesTask } from './display-features-task';
 
 export class Task {
     constructor(private model: Model) {}
-    execute() {
-        for (const name of TASK_ORDER) {
-            const task = this.model.get(name);
-            if (!isFunction(task)) continue;
-            task(this.model);
-        }
+    execute(): void {
+        try {
+            for (const name of TASK_ORDER) {
+                const task = this.model.get(name);
+                if (!isFunction(task)) continue;
+                task(this.model);
+            }
+        } catch (e) {}
     }
 }
 const TASK_ORDER = [

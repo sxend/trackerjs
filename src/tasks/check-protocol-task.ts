@@ -1,3 +1,11 @@
 import { Model } from '../model';
+import { getGlobal } from '../utils/objects';
 
-export function checkProtocolTask(model: Model) {}
+const __global = getGlobal();
+
+export function checkProtocolTask(model: Model): void {
+    const protocol = __global.location && __global.location.protocol;
+    if (protocol !== 'http:' && protocol !== 'https:') {
+        throw 'abort task by checkProtocolTask';
+    }
+}
