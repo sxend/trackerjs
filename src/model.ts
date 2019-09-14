@@ -1,7 +1,12 @@
+import { Fields } from './fields';
+
 export class Model {
     private map: Map<string, any>;
     constructor(private parent?: Model) {
         this.map = new Map();
+        if (!parent) {
+            this.set(Fields.defaults());
+        }
     }
     get(name: string): any {
         const value = this.map.get(name);

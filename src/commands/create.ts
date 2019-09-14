@@ -1,7 +1,34 @@
 import { argumentsParser } from '../arguments-parser';
 import { Tracker } from '../tracker';
+import { Arrays } from '../util';
 
-export function create(id: string): Tracker {
-    const args = argumentsParser(arguments);
-    return Tracker.create(id, args);
+export function create(..._: any[]): Tracker {
+    const tr = this;
+    const fields = convertArguments(Arrays.slice(arguments));
+    const tracker = Tracker.create(fields);
+    if (!tr.t[tracker.get('name')]) {
+        tr.t[tracker.get('name')] = tracker;
+    }
+    return tracker;
 }
+export function convertArguments(args: any[]): any {
+    let fields: any = {};
+    if (typeof args[0] === 'string') {
+        fields['trackingId'] = args[0];
+    } else if (typeof args[0] === 'object') {
+        fields = merge(fields, args[0]);
+    }
+    if (typeof args[1] === 'string') {
+        fields['cookieDomain'] = args[1];
+    } else if (typeof args[1] === 'object') {
+        fields = merge(fields, args[1]);
+    }
+    if (typeof args[2] === 'string') {
+        fields['name'] = args[2];
+    } else if (typeof args[2] === 'object') {
+        fields = merge(fields, args[2]);
+    }
+    return fields;
+}
+
+const merge = (...objects: any[]) => ({ ...objects });

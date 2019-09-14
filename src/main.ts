@@ -1,6 +1,7 @@
 import { create } from './commands/create';
 import { Tracker } from './tracker';
 import { tr } from './tr';
+import { Arrays } from './util';
 
 export function main(tr: any) {
     initialize(tr);
@@ -13,20 +14,22 @@ export function main(tr: any) {
 // https://developers.google.com/analytics/devguides/collection/analyticsjs/ga-object-methods-reference
 function initialize(tr: any) {
     tr.t = {};
-    tr.create = function create(id: string, ...options: any): Tracker {
-        return (tr.t[id] = Tracker.create(id, options));
-    };
-    tr.getByName = function getByName(name: string): Tracker {
-        return tr.t[name];
-    };
-    tr.getAll = function getAll(): Array<Tracker> {
-        const list = [];
-        for (const name of Object.keys(tr.t)) {
-            list.push(tr.t[name]);
-        }
-        return list;
-    };
-    tr.remove = function remove(name: string): void {
-        delete tr.t[name];
-    };
+    tr.create = create.bind(tr);
+    tr.getByName = getByName.bind(tr);
+    tr.getAll = getAll.bind(tr);
+    tr.remove = remove.bind(tr);
+}
+
+function getByName(name: string): Tracker {
+    return this.t[name];
+}
+function getAll(): Array<Tracker> {
+    const list = [];
+    for (const name of Object.keys(this.t)) {
+        list.push(this.t[name]);
+    }
+    return list;
+}
+function remove(name: string): void {
+    delete this.t[name];
 }
