@@ -1,11 +1,13 @@
 import { Model } from './model';
+import * as uuidgen from 'uuid/v4';
+
 const __global = (0, eval)('this');
 
 export namespace Fields {
     export function defaults(): any {
         return {
             name: 't0',
-            clientId: 'Randomly Generated', // TODO gen uuid
+            clientId: uuidgen(),
             sampleRate: 100,
             siteSpeedSampleRate: 1,
             alwaysSendReferrer: false,
@@ -111,8 +113,4 @@ export namespace Fields {
             // expVar: 'xvar',
         };
     }
-    export function toProtocolParam(name: string, model: Model): string {
-        return protocolParams[name];
-    }
-    const protocolParams: { [name: string]: string } = {};
 }
