@@ -1,1 +1,3 @@
-export function send(..._: any) {}
+export function send(...args: any[]) {
+    const tr = this;
+}

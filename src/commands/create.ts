@@ -1,9 +1,9 @@
 import { Tracker } from '../tracker';
 import { Arrays, Objects } from '../util';
 
-export function create(..._: any[]): Tracker {
+export function create(...args: any[]): Tracker {
     const tr = this;
-    const fields = convertArguments(Arrays.slice(arguments));
+    const fields = convertArguments(args);
     const tracker = Tracker.create(fields);
     if (!tr.t[tracker.get('name')]) {
         tr.t[tracker.get('name')] = tracker;

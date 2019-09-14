@@ -1,1 +1,3 @@
-export function set() {}
+export function set(...args: any[]) {
+    const tr = this;
+}

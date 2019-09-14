@@ -1,1 +1,3 @@
-export function provide() {}
+export function provide(...args: any[]) {
+    const tr = this;
+}
