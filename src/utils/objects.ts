@@ -7,6 +7,9 @@ export function isString(obj: any): boolean {
 export function isNumber(obj: any): boolean {
     return typeIs(obj, 'number');
 }
+export function isFunction(obj: any): boolean {
+    return typeIs(obj, 'function');
+}
 function typeIs(obj: any, t: string): boolean {
     return typeof obj === t;
 }

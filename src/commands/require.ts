@@ -1,4 +1,5 @@
 import { Tracker } from '../tracker';
+import { isFunction } from '../utils/objects';
 
 export function _require(
     tracker: Tracker,
@@ -6,7 +7,7 @@ export function _require(
     pluginOption?: any
 ) {
     const tr = this;
-    if (!tr.plg[pluginName] || typeof tr.plg[pluginName] !== 'function') return;
+    if (!isFunction(tr.plg[pluginName])) return;
     this.tracker.set(
         `plugin:${pluginName}`,
         new tr.plg[pluginName](tracker, pluginOption)

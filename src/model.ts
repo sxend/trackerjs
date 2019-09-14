@@ -1,3 +1,5 @@
+import { isString } from './utils/objects';
+
 export class Model {
     private map: Map<string, any>;
     constructor(private parent?: Model) {
@@ -18,7 +20,7 @@ export class Model {
         if (!temporary && this.parent) {
             this.parent.set(nameOrFieldsObject, value, temporary);
         } else {
-            if (typeof nameOrFieldsObject === 'string') {
+            if (isString(nameOrFieldsObject)) {
                 this.map.set(nameOrFieldsObject, value);
             } else {
                 for (const name of Object.keys(nameOrFieldsObject)) {
