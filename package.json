@@ -29,6 +29,12 @@
         ],
         "require": [
             "ts-node/register"
+        ],
+        "files": [
+            "test/**/*.spec.ts"
+        ],
+        "helpers": [
+            "test/helpers/**/*"
         ]
     },
     "dependencies": {

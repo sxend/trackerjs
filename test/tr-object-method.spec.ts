@@ -1,5 +1,5 @@
 import test from 'ava';
-import { newtr } from '../src/tr';
+import { newtr } from './helpers/tr-snipet';
 import { main } from '../src/main';
 
 function newTr() {

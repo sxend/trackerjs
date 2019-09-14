@@ -1,15 +1,10 @@
 import { create } from './commands/create';
 import { Tracker } from './tracker';
-import { tr } from './tr';
-import { Arrays } from './util';
 
 export function main(oldtr: any) {
     if (!oldtr.q) {
         // already initialized
         return oldtr;
-    }
-    while (oldtr.q.length > 0) {
-        console.log(oldtr.q.pop());
     }
     function tr(..._: any) {
         // TODO impl

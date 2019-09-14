@@ -1,3 +1,4 @@
+// ava skip
 function newtr() {
     const tr: any = function() {
         tr.q.push([].slice.call(arguments));

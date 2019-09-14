@@ -1,5 +1,5 @@
 import test from 'ava';
-import { tr } from '../src/tr';
+import { tr } from './helpers/tr-snipet';
 
 test('index', t => {
     tr('create', 'TEST_TRACKER');
