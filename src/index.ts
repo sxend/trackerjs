@@ -1,6 +1,7 @@
 import { main } from './main';
+import { getGlobal } from './utils/objects';
 
-const __global: any = (0, eval)('this');
+const __global: any = getGlobal();
 
 const TRACKERJS_OBJECT = __global.__TRACKERJS_OBJECT || 'tr';
 

@@ -13,6 +13,9 @@ export function isFunction(obj: any): boolean {
 function typeIs(obj: any, t: string): boolean {
     return typeof obj === t;
 }
+export function getGlobal(): any {
+    return (0, eval)('this');
+}
 // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Polyfill
 export function assign(target: any, ..._: any) {
     'use strict';

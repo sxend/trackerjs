@@ -1,7 +1,8 @@
 import { Model } from './model';
 import * as uuidgen from 'uuid/v4';
+import { getGlobal } from './utils/objects';
 
-const __global = (0, eval)('this');
+const __global = getGlobal();
 
 export namespace Fields {
     export function defaults(): any {
@@ -24,7 +25,7 @@ export namespace Fields {
             // dataSource: 'ds',
             // queueTime: 'qt',
             forceSSL: false,
-            transport: 'none', // 「beacon」、「xhr」、「image」
+            transport: 'none',
             useBeacon: false,
             // userId: 'uid',
             // sessionControl: 'sc',

@@ -1,6 +1,6 @@
 import { Model } from './model';
 import { isString, assign, isNumber } from './utils/objects';
-import { Task } from './tasks';
+import { Task, setDefaultTasks } from './tasks';
 import { isObject } from 'util';
 import { Fields } from './fields';
 
@@ -12,7 +12,7 @@ export class Tracker {
     static create(fields: any): Tracker {
         const tracker = new Tracker();
         tracker.set(assign(Fields.defaults(), fields));
-        Task.setTracker(tracker);
+        setDefaultTasks(tracker);
         return tracker;
     }
     get(name: string): any {
