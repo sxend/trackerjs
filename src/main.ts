@@ -1,8 +1,8 @@
 import { create } from './commands/create';
+import { remove } from './commands/remove';
 import { Tracker } from './tracker';
 import { Arrays } from './util';
 import { Command } from './command';
-
 export function main(oldtr: any) {
     if (!oldtr.q) {
         // already initialized
@@ -23,7 +23,7 @@ function initialize(tr: any) {
     tr.create = create.bind(tr, null);
     tr.getByName = getByName.bind(tr);
     tr.getAll = getAll.bind(tr);
-    tr.remove = remove.bind(tr);
+    tr.remove = removeWraper.bind(tr);
 }
 function getByName(name: string): Tracker {
     return this.t[name];
@@ -35,6 +35,6 @@ function getAll(): Array<Tracker> {
     }
     return list;
 }
-function remove(name: string): void {
-    delete this.t[name];
+function removeWraper(name: string): void {
+    remove.call(this, this.t[name]);
 }

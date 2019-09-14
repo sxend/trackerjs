@@ -5,6 +5,5 @@ export function set(
     nameOrFieldsObject: string | any,
     value?: any
 ) {
-    const tr = this;
     tracker.set(nameOrFieldsObject, value);
 }
