@@ -6,12 +6,14 @@ import { Fields } from './fields';
 
 export class Tracker {
     private model: Model;
-    constructor(fields: any) {
+    constructor() {
         this.model = new Model();
-        this.model.set(fields);
     }
     static create(fields: any): Tracker {
-        return new Tracker(assign(Fields.defaults(), fields));
+        const tracker = new Tracker();
+        tracker.set(assign(Fields.defaults(), fields));
+        Task.setTracker(tracker);
+        return tracker;
     }
     get(name: string): any {
         return this.model.get(name);
