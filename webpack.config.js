@@ -8,16 +8,16 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+    ],
   },
-  mode: "development",
+  mode: 'development',
   resolve: {
-    extensions: [ '.tsx', '.ts', '.js' ]
+    extensions: ['.tsx', '.ts', '.js'],
   },
   output: {
     filename: 'tracker.js',
-    path: path.resolve(__dirname, 'target')
-  }
+    path: path.resolve(__dirname, 'target'),
+  },
 };
