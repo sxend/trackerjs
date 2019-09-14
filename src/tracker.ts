@@ -2,6 +2,7 @@ import { Model } from './model';
 import { isString, assign, isNumber } from './utils/objects';
 import { Task } from './tasks';
 import { isObject } from 'util';
+import { Fields } from './fields';
 
 export class Tracker {
     private model: Model;
@@ -10,7 +11,7 @@ export class Tracker {
         this.model.set(fields);
     }
     static create(fields: any): Tracker {
-        return new Tracker(fields);
+        return new Tracker(assign(Fields.defaults(), fields));
     }
     get(name: string): any {
         return this.model.get(name);

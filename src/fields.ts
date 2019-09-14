@@ -7,7 +7,7 @@ export namespace Fields {
     export function defaults(): any {
         return {
             name: 't0',
-            clientId: uuidgen(),
+            clientId: uuidgen(), // TODO check cookie value
             sampleRate: 100,
             siteSpeedSampleRate: 1,
             alwaysSendReferrer: false,
