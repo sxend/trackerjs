@@ -12,6 +12,7 @@ import { buildHitTask } from './build-hit-task';
 import { sendHitTask } from './send-hit-task';
 import { timingTask } from './timing-task';
 import { displayFeaturesTask } from './display-features-task';
+import { Logger } from '../utils/logger';
 
 export class Task {
     constructor(private model: Model) {}
@@ -22,7 +23,9 @@ export class Task {
                 if (!isFunction(task)) continue;
                 task(this.model);
             }
-        } catch (e) {}
+        } catch (e) {
+            Logger.log(e);
+        }
     }
 }
 const TASK_ORDER = [
