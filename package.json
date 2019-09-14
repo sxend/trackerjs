@@ -13,6 +13,7 @@
     "author": "",
     "license": "MIT",
     "devDependencies": {
+        "@types/js-cookie": "2.2.2",
         "@types/uuid": "3.4.5",
         "ava": "2.3.0",
         "prettier": "1.18.2",
@@ -38,6 +39,7 @@
         ]
     },
     "dependencies": {
+        "js-cookie": "2.2.1",
         "uuid": "3.3.3"
     }
 }
