@@ -17,13 +17,11 @@ export class Command {
         this.method = command[3];
     }
     run(): void {
-        if (!this.tracker) {
-            return;
-        }
         if (!this.plugin) {
-            resolve(this.method).apply(this.tr, this.args);
+            resolve(this.method).apply(this.tr, [this.tracker, ...this.args]);
             return;
         }
+        if (!this.tracker) return;
         const plugin = this.tracker.get(`plugin:${this.plugin}`);
         if (plugin) {
             plugin[this.method].apply(plugin, this.args);

@@ -19,7 +19,8 @@ export function main(oldtr: any) {
 // https://developers.google.com/analytics/devguides/collection/analyticsjs/ga-object-methods-reference
 function initialize(tr: any) {
     tr.t = {};
-    tr.create = create.bind(tr);
+    tr.plg = {};
+    tr.create = create.bind(tr, null);
     tr.getByName = getByName.bind(tr);
     tr.getAll = getAll.bind(tr);
     tr.remove = remove.bind(tr);
