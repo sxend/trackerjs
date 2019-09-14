@@ -3,11 +3,19 @@ import { Tracker } from './tracker';
 import { tr } from './tr';
 import { Arrays } from './util';
 
-export function main(tr: any) {
-    initialize(tr);
-    while (tr.q.length > 0) {
-        console.log(tr.q.pop());
+export function main(oldtr: any) {
+    if (!oldtr.q) {
+        // already initialized
+        return oldtr;
     }
+    while (oldtr.q.length > 0) {
+        console.log(oldtr.q.pop());
+    }
+    function tr(..._: any) {
+        // TODO impl
+    }
+    initialize(tr);
+    return tr;
 }
 
 // setup tr object methods.
@@ -19,7 +27,6 @@ function initialize(tr: any) {
     tr.getAll = getAll.bind(tr);
     tr.remove = remove.bind(tr);
 }
-
 function getByName(name: string): Tracker {
     return this.t[name];
 }

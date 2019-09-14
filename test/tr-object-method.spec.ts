@@ -4,8 +4,7 @@ import { main } from '../src/main';
 
 function newTr() {
     const tr = newtr();
-    main(tr);
-    return tr;
+    return main(tr);
 }
 test('tr object create/remove method', t => {
     const tr = newTr();
