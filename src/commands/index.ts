@@ -19,5 +19,7 @@ export function resolve(method: string): Function {
             return send;
         case 'set':
             return set;
+        default:
+            return () => {};
     }
 }
