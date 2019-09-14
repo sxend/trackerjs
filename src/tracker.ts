@@ -38,7 +38,7 @@ function resolveStorategy(hitType: string): FieldStorategy {
             return new PageviewStorategy();
         case 'event':
             return new Eventtorategy();
-        case 'social	':
+        case 'social':
             return new SocialStorategy();
         case 'timing':
             return new TimingStorategy();
@@ -89,7 +89,6 @@ class Eventtorategy implements FieldStorategy {
 }
 class SocialStorategy implements FieldStorategy {
     collect(args: any[]): any {
-        // socialNetwork、socialAction、socialTarget
         let fields: any = {};
         fields = setFieldOrAssignObject(
             fields,
@@ -117,7 +116,6 @@ class SocialStorategy implements FieldStorategy {
 }
 class TimingStorategy implements FieldStorategy {
     collect(args: any[]): any {
-        // timingCategory timingVar timingValue timingLabel
         let fields: any = {};
         fields = setFieldOrAssignObject(
             fields,
