@@ -1,13 +1,15 @@
 import { create } from './commands/create';
 import { Tracker } from './tracker';
+import { Arrays } from './util';
+import { Command } from './command';
 
 export function main(oldtr: any) {
     if (!oldtr.q) {
         // already initialized
         return oldtr;
     }
-    function tr(..._: any) {
-        // TODO impl
+    function tr(...args: any[]) {
+        new Command(tr, args).run();
     }
     initialize(tr);
     return tr;
