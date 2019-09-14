@@ -1,3 +1,3 @@
 import { Model } from '../model';
 
-export function samplerTask(model: Model) {}
+export function samplerTask(model: Model): void {}
