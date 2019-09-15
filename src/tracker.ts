@@ -23,9 +23,10 @@ export class Tracker {
     }
     send(hitType: string, ...args: any[]): void {
         const fields = resolveFieldStrategy(hitType).collect(args);
-        const hitModel = new Model(this.model);
-        hitModel.set(fields, null, true);
-        new Task(hitModel).execute();
+        const sendModel = new Model(this.model);
+        sendModel.set('hitType', hitType, true);
+        sendModel.set(fields, null, true);
+        new Task(sendModel).execute();
     }
 }
 function assignClientId(model: Model): void {
@@ -36,7 +37,7 @@ function assignClientId(model: Model): void {
     if (clientId) {
         model.set('clientId', clientId);
     } else {
-        setClientId(
+        saveClientId(
             cookieName,
             model.get('clientId'),
             model.get('cookieDomain'),
@@ -44,7 +45,7 @@ function assignClientId(model: Model): void {
         );
     }
 }
-function setClientId(
+function saveClientId(
     cookieName: string,
     clientId: string,
     cookieDomain: string,
