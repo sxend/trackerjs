@@ -9,9 +9,8 @@ import { getHostname } from './utils/misc';
 export class Tracker {
     constructor(private model: Model) {}
     static create(fields: { [name: string]: any }): Tracker {
-        fields = assign(Fields.defaults(), fields);
-        const model = Model.fromFields(fields);
-        initClientId(model);
+        const model = Model.fromFields(assign(Fields.defaults(), fields));
+        assignClientId(model);
         const tracker = new Tracker(model);
         setDefaultTasks(tracker);
         return tracker;
@@ -29,7 +28,7 @@ export class Tracker {
         new Task(hitModel).execute();
     }
 }
-function initClientId(model: Model): void {
+function assignClientId(model: Model): void {
     const storage = model.get('storage');
     if (storage !== 'cookie' || storage === 'none') return;
     const cookieName = model.get('cookieName');
