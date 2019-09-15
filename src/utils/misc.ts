@@ -1,21 +1,37 @@
 import { getGlobal } from './objects';
+import { Logger } from './logger';
 
 const __global = getGlobal();
-export const isDebugEnabled: boolean =
-    __global.location &&
-    __global.location.hash &&
-    __global.location.hash.indexOf('__tr_debug_enabled');
+export const isDebugEnabled: boolean = getFn(
+    () => getLocation().hash.indexOf('__tr_debug_enabled') !== -1
+);
+// __global.location &&
+// __global.location.hash &&
+// __global.location.hash.indexOf('__tr_debug_enabled') !== -1;
 export function getRawCookieString(): string {
-    return __global.navigator && __global.navigator.userAgent;
+    return getFn(() => __global.navigator.userAgent);
 }
 export function getUAString(): string {
-    return __global.document && __global.document.cookie;
+    return getFn(() => __global.document.cookie);
 }
 export function getReferrerString(): string {
-    return __global.document && __global.document.referrer;
+    return getFn(() => __global.document.referrer);
+}
+export function getLocation(): Location {
+    return getFn(() => __global.document.location);
+}
+export function getHostname(): string {
+    return getFn(() => getLocation().hostname);
+}
+function getFn<A>(fn: () => A): A {
+    try {
+        return fn();
+    } catch (e) {
+        Logger.log(e);
+    }
 }
 export function getHistory(): History {
-    return __global.history;
+    return __global.history || [];
 }
 export function getEpochTime(): number {
     return Math.round(new Date().getTime() / 1e3);
@@ -43,7 +59,7 @@ export function hashCode(src: string): number {
     return hash;
 }
 
-function genClientId() {
+export function genClientId() {
     let signature = `${getUAString()}${getRawCookieString()}${getReferrerString()}`;
     for (
         let seedLength = signature.length, historyLength = getHistory().length;

@@ -1,21 +1,16 @@
-import { Model } from './model';
-import * as uuidgen from 'uuid/v4';
-import { getGlobal } from './utils/objects';
-
-const __global = getGlobal();
+import { getReferrerString, getHostname, genClientId } from './utils/misc';
 
 export namespace Fields {
     export function defaults(): any {
         return {
             name: 't0',
-            clientId: uuidgen(), // TODO check cookie value
+            clientId: genClientId(),
             sampleRate: 100,
             siteSpeedSampleRate: 1,
             alwaysSendReferrer: false,
             allowAnchor: true,
             cookieName: '_tr',
-            cookieDomain:
-                __global.document && __global.document.location.hostname,
+            cookieDomain: getHostname(),
             cookieExpires: 63072000,
             storeGac: true,
             legacyHistoryImport: true,
@@ -29,7 +24,7 @@ export namespace Fields {
             useBeacon: false,
             // userId: 'uid',
             // sessionControl: 'sc',
-            referrer: __global.document && __global.document.referrer,
+            referrer: getReferrerString(),
             // campaignName: 'cn',
             // campaignSource: 'cs',
             // campaignMedium: 'cm',
