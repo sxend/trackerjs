@@ -1,7 +1,7 @@
 import { Model } from './model';
 import { isString, assign, isNumber } from './utils/objects';
 import { Task, setDefaultTasks } from './tasks';
-import { isObject } from 'util';
+import { isObject } from './utils/objects';
 import { Fields } from './fields';
 import { Cookies } from './utils/cookies';
 import { getHostname } from './utils/misc';

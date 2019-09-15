@@ -1,5 +1,5 @@
 import { Model } from '../model';
-import { isFunction } from 'util';
+import { isFunction } from '../utils/objects';
 import { Tracker } from '../tracker';
 import { customTask } from './custom-task';
 import { previewTask } from './preview-task';
