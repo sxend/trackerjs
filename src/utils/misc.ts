@@ -21,6 +21,12 @@ export function getLocation(): Location {
 export function getHostname(): string {
     return getFn(() => getLocation().hostname);
 }
+export function getHostnameWithoutWWWDot(): string {
+    return getFn(() => {
+        const hostname = '' + getHostname();
+        return 0 == hostname.indexOf('www.') ? hostname.substring(4) : hostname;
+    });
+}
 function getFn<A>(fn: () => A): A {
     try {
         return fn();

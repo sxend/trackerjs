@@ -1,12 +1,15 @@
-import { isString } from './utils/objects';
+import { isString, assign } from './utils/objects';
 
 export class Model {
-    private map: Map<string, any>;
-    constructor(private parent?: Model) {
-        this.map = new Map();
+    constructor(
+        private parent?: Model,
+        private map: { [name: string]: any } = {}
+    ) {}
+    static fromFields(fields: { [name: string]: any }): Model {
+        return new Model(null, assign({}, fields));
     }
     get(name: string): any {
-        const value = this.map.get(name);
+        const value = this.map[name];
         if (value !== void 0) {
             return value;
         }
@@ -21,10 +24,10 @@ export class Model {
             this.parent.set(nameOrFieldsObject, value, temporary);
         } else {
             if (isString(nameOrFieldsObject)) {
-                this.map.set(nameOrFieldsObject, value);
+                this.map[nameOrFieldsObject] = value;
             } else {
                 for (const name of Object.keys(nameOrFieldsObject)) {
-                    this.map.set(name, nameOrFieldsObject[name]);
+                    this.map[name] = nameOrFieldsObject[name];
                 }
             }
         }

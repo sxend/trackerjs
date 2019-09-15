@@ -3,16 +3,16 @@ import { isString, assign, isNumber } from './utils/objects';
 import { Task, setDefaultTasks } from './tasks';
 import { isObject } from 'util';
 import { Fields } from './fields';
+import { Cookies } from './utils/cookies';
+import { getHostname } from './utils/misc';
 
 export class Tracker {
-    private model: Model;
-    constructor() {
-        this.model = new Model();
-    }
-    static create(fields: any): Tracker {
-        const tracker = new Tracker();
+    constructor(private model: Model) {}
+    static create(fields: { [name: string]: any }): Tracker {
         fields = assign(Fields.defaults(), fields);
-        tracker.set(fields);
+        const model = Model.fromFields(fields);
+        initClientId(model);
+        const tracker = new Tracker(model);
         setDefaultTasks(tracker);
         return tracker;
     }
@@ -23,17 +23,60 @@ export class Tracker {
         this.model.set(nameOrFieldsObject, value);
     }
     send(hitType: string, ...args: any[]): void {
-        const fields = resolveStorategy(hitType).collect(args);
+        const fields = resolveFieldStrategy(hitType).collect(args);
         const hitModel = new Model(this.model);
         hitModel.set(fields, null, true);
         new Task(hitModel).execute();
     }
 }
-
+function initClientId(model: Model): void {
+    const storage = model.get('storage');
+    if (storage !== 'cookie' || storage === 'none') return;
+    const cookieName = model.get('cookieName');
+    const clientId = Cookies.getItem(cookieName);
+    if (clientId) {
+        model.set('clientId', clientId);
+    } else {
+        setClientId(
+            cookieName,
+            model.get('clientId'),
+            model.get('cookieDomain'),
+            model.get('cookieExpires')
+        );
+    }
+}
+function setClientId(
+    cookieName: string,
+    clientId: string,
+    cookieDomain: string,
+    cookieExpires: number
+) {
+    function trySetItem(): boolean {
+        Cookies.setItem(cookieName, clientId, cookieDomain, cookieExpires);
+        return isString(Cookies.getItem(cookieName));
+    }
+    if (cookieDomain === 'none') {
+        cookieDomain = void 0;
+    }
+    if (cookieDomain === 'auto') {
+        const hostnameElem = getHostname().split('.');
+        cookieDomain = hostnameElem.pop();
+        const prependDomain = () => {
+            cookieDomain = hostnameElem.pop() + '.' + cookieDomain;
+        };
+        let result: boolean;
+        do {
+            prependDomain();
+            result = trySetItem();
+        } while (!result && hostnameElem.length !== 0);
+    } else {
+        trySetItem();
+    }
+}
 interface FieldStrategy {
     collect(args: any[]): any;
 }
-function resolveStorategy(hitType: string): FieldStrategy {
+function resolveFieldStrategy(hitType: string): FieldStrategy {
     switch (hitType) {
         case 'pageview':
             return new PageviewStrategy();

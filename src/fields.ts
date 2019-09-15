@@ -12,6 +12,7 @@ export namespace Fields {
             cookieName: '_tr',
             cookieDomain: getHostname(),
             cookieExpires: 63072000,
+            storage: 'cookie',
             storeGac: true,
             legacyHistoryImport: true,
             allowLinker: false,
