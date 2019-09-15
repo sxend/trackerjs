@@ -11,7 +11,8 @@ export class Tracker {
     }
     static create(fields: any): Tracker {
         const tracker = new Tracker();
-        tracker.set(assign(Fields.defaults(), fields));
+        fields = assign(Fields.defaults(), fields);
+        tracker.set(fields);
         setDefaultTasks(tracker);
         return tracker;
     }
@@ -29,32 +30,32 @@ export class Tracker {
     }
 }
 
-interface FieldStorategy {
+interface FieldStrategy {
     collect(args: any[]): any;
 }
-function resolveStorategy(hitType: string): FieldStorategy {
+function resolveStorategy(hitType: string): FieldStrategy {
     switch (hitType) {
         case 'pageview':
-            return new PageviewStorategy();
+            return new PageviewStrategy();
         case 'event':
-            return new Eventtorategy();
+            return new EventStrategy();
         case 'social':
-            return new SocialStorategy();
+            return new SocialStrategy();
         case 'timing':
-            return new TimingStorategy();
+            return new TimingStrategy();
         default:
-            return new DefaultStorategy();
+            return new DefaultStrategy();
     }
 }
 
-class PageviewStorategy implements FieldStorategy {
+class PageviewStrategy implements FieldStrategy {
     collect(args: any[]): any {
         let fields: any = {};
         fields = setFieldOrAssignObject(fields, args[0], isString, 'page');
         return fields;
     }
 }
-class Eventtorategy implements FieldStorategy {
+class EventStrategy implements FieldStrategy {
     collect(args: any[]): any {
         let fields: any = {};
         fields = setFieldOrAssignObject(
@@ -87,7 +88,7 @@ class Eventtorategy implements FieldStorategy {
         return fields;
     }
 }
-class SocialStorategy implements FieldStorategy {
+class SocialStrategy implements FieldStrategy {
     collect(args: any[]): any {
         let fields: any = {};
         fields = setFieldOrAssignObject(
@@ -114,7 +115,7 @@ class SocialStorategy implements FieldStorategy {
         return fields;
     }
 }
-class TimingStorategy implements FieldStorategy {
+class TimingStrategy implements FieldStrategy {
     collect(args: any[]): any {
         let fields: any = {};
         fields = setFieldOrAssignObject(
@@ -142,7 +143,7 @@ class TimingStorategy implements FieldStorategy {
         return fields;
     }
 }
-class DefaultStorategy implements FieldStorategy {
+class DefaultStrategy implements FieldStrategy {
     collect(args: any[]): any {
         let fields: any = {};
         return isObject(args[0]) ? assign(fields, ...args) : fields;

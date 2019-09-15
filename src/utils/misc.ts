@@ -5,9 +5,7 @@ const __global = getGlobal();
 export const isDebugEnabled: boolean = getFn(
     () => getLocation().hash.indexOf('__tr_debug_enabled') !== -1
 );
-// __global.location &&
-// __global.location.hash &&
-// __global.location.hash.indexOf('__tr_debug_enabled') !== -1;
+
 export function getRawCookieString(): string {
     return getFn(() => __global.navigator.userAgent);
 }
