@@ -1,48 +1,30 @@
 import test from 'ava';
-import * as puppeteer from 'puppeteer';
-const hoxy: any = require('hoxy');
-import * as getPort from 'get-port';
-import { readFileSync } from '../helpers/proxy';
+
+import {
+    interceptE2EHtml,
+    interceptTrackerJS,
+    createProxy,
+} from '../helpers/proxy';
+import { launchBrowser } from '../helpers/browser';
 
 test('send pageview', async t => {
-    const port = await getPort();
-    const proxy: any = await new Promise(resolve => {
-        let server = hoxy.createServer().listen(port, () => {
-            t.log('proxy listen');
-            resolve(server);
-        });
-    });
-    proxy.intercept(
-        {
-            phase: 'request',
-            fullUrl: 'http://example.com/pageview.html',
-            as: 'string',
-        },
-        function(req: any, res: any) {
-            res.string = readFileSync('html/pageview.html');
-        }
-    );
-    proxy.intercept(
-        {
-            phase: 'request',
-            fullUrl: 'http://example.com/tracker.js',
-            as: 'string',
-        },
-        function(req: any, res: any) {
-            res.string = readFileSync('../../target/tracker.js');
-        }
-    );
-    const browser = await puppeteer.launch({
-        headless: false,
-        ignoreHTTPSErrors: true,
-        args: [`--proxy-server=127.0.0.1:${port}`],
-    });
+    const { port, proxy } = await createProxy();
+    interceptTrackerJS(proxy);
+    interceptE2EHtml(proxy, 'html/pageview.html');
+    const browser = await launchBrowser(port);
     const page = await browser.newPage();
-    await page.goto('http://example.com/pageview.html');
+    await page.goto('http://example.com/e2e.html');
     await page.waitFor(1000);
     const result = await page.evaluate(() => (0, eval)('this')['tr']);
     await browser.close();
     t.falsy(result.q);
     t.truthy(result.create);
+    t.truthy(proxy.context.requests);
+    t.is(
+        proxy.context.requests.filter(
+            (req: any) => req.url.indexOf('collect') !== -1
+        ).length,
+        1
+    );
     t.pass();
 });
