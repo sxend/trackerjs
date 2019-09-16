@@ -6,9 +6,9 @@ export function sendByXhr(
     payload: string,
     callback: Function
 ): boolean {
-    var XMLHttpRequest = __global.XMLHttpRequest;
+    const XMLHttpRequest = __global.XMLHttpRequest;
     if (!XMLHttpRequest) return false;
-    var xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest();
     if (!('withCredentials' in xhr)) return false;
     xhr.open('POST');
     url = url.replace(/^http:/, 'https:');
